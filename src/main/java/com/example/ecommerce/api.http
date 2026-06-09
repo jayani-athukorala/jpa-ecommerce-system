@@ -63,3 +63,40 @@ Content-Type: application/json
   "city": "Malmo",
   "zipCode": "21120"
 }
+
+###
+POST http://localhost:8080/api/categories
+Content-Type: application/json
+
+{
+  "name": "Electronics"
+}
+
+###
+POST http://localhost:8080/api/categories
+Content-Type: application/json
+
+{
+  "name": "Books"
+}
+
+
+###
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "name": "iPhone 15",
+    "price": 1200,
+    "categoryId": 1
+}
+
+###
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "name": "Spring Boot Book",
+    "price": 40,
+    "categoryId": 2
+}
