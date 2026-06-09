@@ -2,7 +2,6 @@ package com.example.ecommerce.mapper;
 
 import com.example.ecommerce.dto.request.ProductRequest;
 import com.example.ecommerce.dto.response.ProductResponse;
-import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Product;
 import org.springframework.stereotype.Component;
 

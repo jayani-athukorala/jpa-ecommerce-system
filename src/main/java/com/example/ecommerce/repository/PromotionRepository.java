@@ -42,4 +42,6 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
         WHERE CURRENT_DATE BETWEEN p.startDate AND p.endDate
     """)
     List<Promotion> findActiveToday();
+
+    boolean existsByCode(String code);
 }

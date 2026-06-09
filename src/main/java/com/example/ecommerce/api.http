@@ -100,3 +100,39 @@ Content-Type: application/json
     "price": 40,
     "categoryId": 2
 }
+
+### Create Promotion 1 (iPhone Discount)
+POST http://localhost:8080/api/promotions
+Content-Type: application/json
+
+{
+  "code": "IPHONE10",
+  "startDate": "2026-06-01",
+  "endDate": "2026-06-30",
+  "discountPercentage": 10,
+  "productIds": [1]
+}
+
+### Create Promotion 2 (Book Discount)
+POST http://localhost:8080/api/promotions
+Content-Type: application/json
+
+{
+  "code": "BOOK20",
+  "startDate": "2026-06-01",
+  "endDate": "2026-07-01",
+  "discountPercentage": 20,
+  "productIds": [2]
+}
+
+### Create Promotion 3 (Summer Sale)
+POST http://localhost:8080/api/promotions
+Content-Type: application/json
+
+{
+  "code": "SUMMER2026",
+  "startDate": "2026-06-01",
+  "endDate": "2026-08-01",
+  "discountPercentage": 15,
+  "productIds": [1, 2]
+}
