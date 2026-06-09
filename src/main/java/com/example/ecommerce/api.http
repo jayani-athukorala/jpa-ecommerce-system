@@ -1,0 +1,65 @@
+### Create Customer 1
+# @name create a new  customer
+POST http://localhost:8080/api/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Jayani",
+  "lastName": "Athukorala",
+  "email": "jayani@test.com",
+  "fullName": "Test Name",
+  "password": "12345678",
+  "street": "Teleborg",
+  "city": "Vaxjo",
+  "zipCode": "35257"
+}
+
+### Create Customer 2
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john@test.com",
+  "fullName": "John Smith",
+  "password": "12345678",
+  "street": "Main Street",
+  "city": "Stockholm",
+  "zipCode": "11122"
+}
+
+### Create Customer 3
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "Sara",
+  "lastName": "Andersson",
+  "email": "sara@test.com",
+  "fullName": "Sara Andersson",
+  "password": "12345678",
+  "street": "Park Road",
+  "city": "Gothenburg",
+  "zipCode": "41111"
+}
+
+### Get Customer by ID
+GET http://localhost:8080/api/customers/1
+Accept: application/json
+
+### Update Customer
+PUT http://localhost:8080/api/customers/1
+Content-Type: application/json
+
+{
+  "firstName": "Jayani",
+  "lastName": "Athukorala",
+  "email": "jayani@test.com",
+  "fullName": "Jayani Sandunka",
+  "password": "456789123",
+  "street": "XYZ",
+  "city": "Malmo",
+  "zipCode": "21120"
+}
