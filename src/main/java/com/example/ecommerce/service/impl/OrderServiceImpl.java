@@ -75,6 +75,7 @@ public class OrderServiceImpl implements OrderService {
 
             // Stock update
             product.setStock(product.getStock() - itemRequest.quantity());
+            productRepository.save(product);
         }
 
         // Save the Order with its items.

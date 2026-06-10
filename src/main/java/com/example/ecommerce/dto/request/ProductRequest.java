@@ -10,6 +10,10 @@ public record ProductRequest(
         @NotBlank(message = "Product name cannot be empty!")
         String name,
 
+        @NotNull(message = "Stock cannot be empty!")
+        @Positive(message = "Stock must be positive!")
+        Integer stock,
+
         @NotNull(message = "Price cannot be null!")
         @Positive(message = "Price must be positive!")
         BigDecimal price,

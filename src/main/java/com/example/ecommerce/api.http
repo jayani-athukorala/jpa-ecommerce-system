@@ -87,6 +87,7 @@ Content-Type: application/json
 
 {
     "name": "iPhone 15",
+    "stock": 20,
     "price": 1200,
     "categoryId": 1
 }
@@ -97,6 +98,7 @@ Content-Type: application/json
 
 {
     "name": "Spring Boot Book",
+  "stock": 15,
     "price": 40,
     "categoryId": 2
 }
@@ -135,4 +137,82 @@ Content-Type: application/json
   "endDate": "2026-08-01",
   "discountPercentage": 15,
   "productIds": [1, 2]
+}
+
+### Order 1 - iPhone purchase
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 1
+    }
+  ]
+}
+
+### Order 2 - Book purchase
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 2,
+  "items": [
+    {
+      "productId": 2,
+      "quantity": 2
+    }
+  ]
+}
+
+### Order 3 - Mixed products
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 3,
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 3
+    }
+  ]
+}
+
+### Order 4 - Bulk iPhones
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 5
+    }
+  ]
+}
+
+### Order 5 - Mixed high quantity
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 2,
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 2,
+      "quantity": 4
+    }
+  ]
 }
