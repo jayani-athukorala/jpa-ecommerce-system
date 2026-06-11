@@ -4,6 +4,8 @@ import com.example.ecommerce.dto.request.PromotionRequest;
 import com.example.ecommerce.dto.response.PromotionResponse;
 
 import com.example.ecommerce.service.PromotionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/promotions")
+@Tag(name = "Promotion API", description = "Promotion management endpoints")
 public class PromotionController {
 
     private final PromotionService promotionService;
 
     @PostMapping
+    @Operation(summary = "Create new promotion", description = "Insert new promotion into the system")
     ResponseEntity<PromotionResponse> create(@Valid @RequestBody PromotionRequest promotionRequest){
         IO.println("Request body: "+ promotionRequest);
 
@@ -31,6 +35,7 @@ public class PromotionController {
     }
 
     @GetMapping
+    @Operation(summary = "Get active promotions", description = "Fetch all currently active promotions")
     ResponseEntity<List<PromotionResponse>> getActivePromotions(){
 
         List<PromotionResponse> promotionResponses = promotionService.getActivePromotions();
