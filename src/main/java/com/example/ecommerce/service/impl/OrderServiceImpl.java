@@ -3,10 +3,7 @@ package com.example.ecommerce.service.impl;
 import com.example.ecommerce.dto.request.OrderItemRequest;
 import com.example.ecommerce.dto.request.OrderRequest;
 import com.example.ecommerce.dto.response.OrderResponse;
-import com.example.ecommerce.entity.Customer;
-import com.example.ecommerce.entity.Order;
-import com.example.ecommerce.entity.OrderItem;
-import com.example.ecommerce.entity.Product;
+import com.example.ecommerce.entity.*;
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.mapper.OrderMapper;
 import com.example.ecommerce.repository.CustomerRepository;
@@ -43,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = new Order();
         order.setCustomer(customer);
-
+        order.setStatus(OrderStatus.CREATED);
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (OrderItemRequest itemRequest : orderRequest.items()) {
