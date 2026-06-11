@@ -5,6 +5,8 @@ import com.example.ecommerce.dto.response.PromotionResponse;
 
 import com.example.ecommerce.service.PromotionService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,34 +17,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/promotions")
+@RequiredArgsConstructor
 @Tag(name = "Promotion API", description = "Promotion management endpoints")
 public class PromotionController {
 
     private final PromotionService promotionService;
 
     @PostMapping
-    @Operation(summary = "Create new promotion", description = "Insert new promotion into the system")
-    ResponseEntity<PromotionResponse> create(@Valid @RequestBody PromotionRequest promotionRequest){
-        IO.println("Request body: "+ promotionRequest);
+    @Operation(summary = "Create promotion", description = "Add new promotion")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Promotion created"),
+            @ApiResponse(responseCode = "400", description = "Invalid request")
+    })
+    public ResponseEntity<PromotionResponse> create(
+            @Valid @RequestBody PromotionRequest request) {
 
-        PromotionResponse promotionResponse = promotionService.create(promotionRequest);
-        IO.println("Response body: "+ promotionResponse);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(promotionResponse);
+                .body(promotionService.create(request));
     }
 
     @GetMapping
-    @Operation(summary = "Get active promotions", description = "Fetch all currently active promotions")
-    ResponseEntity<List<PromotionResponse>> getActivePromotions(){
+    @Operation(summary = "Get active promotions", description = "Fetch active promotions")
+    @ApiResponse(responseCode = "200", description = "Promotions retrieved")
+    public ResponseEntity<List<PromotionResponse>> getActivePromotions() {
 
-        List<PromotionResponse> promotionResponses = promotionService.getActivePromotions();
-        IO.println("Response body: "+ promotionResponses);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(promotionResponses);
+        return ResponseEntity.ok(promotionService.getActivePromotions());
     }
-
 }

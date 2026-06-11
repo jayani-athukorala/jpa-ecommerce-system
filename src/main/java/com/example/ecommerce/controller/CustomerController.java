@@ -4,6 +4,8 @@ import com.example.ecommerce.dto.request.CustomerRequest;
 import com.example.ecommerce.dto.response.CustomerResponse;
 import com.example.ecommerce.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -21,39 +23,39 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    @Operation(summary = "Create new customer", description = "Registers a new customer in the system")
-    public ResponseEntity<CustomerResponse> register(@Valid @RequestBody CustomerRequest customerRequest){
-        IO.println("Request body: "+ customerRequest);
-
-        CustomerResponse customerResponse = customerService.register(customerRequest);
-        IO.println("Response body: "+ customerResponse);
+    @Operation(summary = "Create customer", description = "Registers a new customer")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Customer created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @ApiResponse(responseCode = "409", description = "Email already exists")
+    })
+    public ResponseEntity<CustomerResponse> register(@Valid @RequestBody CustomerRequest request) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(customerResponse);
+                .body(customerService.register(request));
     }
 
     @GetMapping("/{id}")
-    @Operation( summary = "Find customer by ID", description = "Retrieves a customer using their ID")
-    public ResponseEntity<CustomerResponse> findById(@PathVariable @Positive Long id){
-        IO.println("Id: "+ id);
+    @Operation(summary = "Get customer by ID", description = "Fetch customer using ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Customer found"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")
+    })
+    public ResponseEntity<CustomerResponse> findById(@PathVariable @Positive Long id) {
 
-        CustomerResponse customerResponse = customerService.findById(id);
-        IO.println("Response body: "+ customerResponse);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(customerResponse);
+        return ResponseEntity.ok(customerService.findById(id));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update customer", description = "Updates an existing customer by ID")
-    public ResponseEntity<CustomerResponse> update(@Positive @PathVariable Long id,@Valid @RequestBody CustomerRequest customerRequest){
-        IO.println("Request body: "+ customerRequest);
+    @Operation(summary = "Update customer", description = "Update existing customer")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Customer updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @ApiResponse(responseCode = "404", description = "Customer not found")
+    })
+    public ResponseEntity<CustomerResponse> update(@PathVariable @Positive Long id, @Valid @RequestBody CustomerRequest request) {
 
-        CustomerResponse customerResponse = customerService.update(id, customerRequest);
-        IO.println("Response body: "+ customerResponse);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(customerResponse);
+        return ResponseEntity.ok(customerService.update(id, request));
     }
 }
